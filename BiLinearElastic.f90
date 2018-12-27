@@ -1,12 +1,9 @@
-      Subroutine User_Mod ( IDTask, iMod, IsUndr,
-     *                      iStep, iTer, iEl, Int,
-     *                      X, Y, Z,
-     *                      Time0, dTime,
-     *                      Props, Sig0, Swp0, StVar0,
-     *                      dEps, D, BulkW,
-     *                      Sig, Swp, StVar, ipl,
-     *                      nStat, NonSym, iStrsDep, iTimeDep,iTang,
-     *                      iPrjDir, iPrjLen, iAbort )
+      Subroutine User_Mod ( IDTask, iMod, IsUndr, iStep, iTer, &
+                              iEl, Int, X, Y, Z, Time0, dTime, &
+                              Props, Sig0, Swp0, StVar0, dEps, &
+                              D, BulkW, Sig, Swp, StVar, ipl, &
+                              nStat, NonSym, iStrsDep, iTimeDep, &
+                              iTang, iPrjDir, iPrjLen, iAbort )
 !
 ! Purpose: User supplied soil model
 !          Example: iMod=1 : Bi-Linear Elastic
@@ -55,8 +52,7 @@
 
       Implicit Double Precision (A-H, O-Z)
 !
-      Dimension Props(*), Sig0(*), StVar0(*), dEps(*), D(6,6),
-     *          Sig(*),   StVar(*), iPrjDir(*)
+      Dimension Props(*), Sig0(*), StVar0(*), dEps(*), D(6,6), Sig(*), StVar(*), iPrjDir(*)
 
       If (IDTask .Eq. 1) Then ! Initialize state variables StVar0
         ! Initialise state variables based on K0 conditions
