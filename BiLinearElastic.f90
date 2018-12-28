@@ -4,6 +4,7 @@
                               D, BulkW, Sig, Swp, StVar, ipl, &
                               nStat, NonSym, iStrsDep, iTimeDep, &
                               iTang, iPrjDir, iPrjLen, iAbort )
+NONE
 !
 ! Purpose: User supplied soil model
 !          Example: iMod=1 : Bi-Linear Elastic
