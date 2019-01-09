@@ -51,6 +51,8 @@
 !  iAbort   O   I    : =1 to force stopping of calculation
 
       Implicit Double Precision (A-H, O-Z)
+
+      !DEC$ ATTRIBUTES DLLExport :: User_Mod
 !
       Dimension Props(*), Sig0(*), StVar0(*), dEps(*), D(6,6), Sig(*), StVar(*), iPrjDir(*)
 
