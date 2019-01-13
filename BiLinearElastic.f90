@@ -168,20 +168,54 @@
       Return
       End ! GetModelName
 
-      Subroutine GetParamCount( iMod , nParam )
+      Subroutine GetParamCount( iMod , C )
       !
       ! Return the number of parameters of the different models
       !
+      Integer iMod, C
+
       Select Case (iMod)
         Case ( 1 )
-          nParam = 5
+          C = 5
         Case Default
-          nParam = 0
+          C = 0
       End Select
       Return
       End ! GetParamCount
 
-      Subroutine GetParamAndUnit( iMod , iParam, ParamName, Units )
+      Subroutine GetParamName (iMod, iParam, ParamName)
+
+      Integer iMod, iParam
+      Character (Len=255) ParamName
+
+      Select Case (iMod)
+        Case (1)
+          ! ModName = 'DP'
+          Select Case (iParam)
+            Case (1)
+              ParamName = '@s#_B#' ! SigmaB
+            Case (2)
+              ParamName = 'E_1#'   ! E1
+            Case (3)
+              ParamName = '@n#_1#' ! v1
+            Case (4)
+              ParamName = 'E_2#'   ! E2
+            Case (5)
+              ParamName = '@n#_2#' ! v2
+            Case Default
+              ParamName = '???'   
+          End Select
+ 
+        Case Default
+          ! model not in DLL
+          ParamName = ' N/A '     
+      End Select
+
+      Return
+      End ! GetParamAndUnit
+
+
+      Subroutine GetParamUnit( iMod , iParam, Units )
       !
       ! Return the parameters name and units of the different models
       !
@@ -189,28 +223,30 @@
       !            L for length unit
       !            T for time unit
       !
-      Character (Len=255) ParamName, Units, tName
+
+      Integer iMod, iParam
+      Character (Len=255) Units
       Select Case (iMod)
         Case (1)
           ! ModName = 'DP'
           Select Case (iParam)
             Case (1)
-              ParamName = '@s#_B#'; Units     = 'kPa'      ! SigmaB
+              Units     = 'kPa'      ! SigmaB
             Case (2)
-              ParamName = 'E_1#'    ; Units   = 'kPa'      ! E1
+              Units   = 'kPa'      ! E1
             Case (3)
-              ParamName = '@n#_1#'  ; Units   = '-'        ! v1
+              Units   = '-'        ! v1
             Case (4)
-              ParamName = 'E_2#'   ; Units    = 'kPa'      ! E2
+              Units    = 'kPa'      ! E2
             Case (5)
-              ParamName = '@n#_2#' ; Units    = '-'        ! v2
+              Units    = '-'        ! v2
             Case Default
-              ParamName = '???'    ; Units    = '???'
+              Units    = '???'
           End Select
  
         Case Default
           ! model not in DLL
-          ParamName = ' N/A '     ; Units     = ' N/A '
+          Units     = ' N/A '
       End Select
 
       Return
@@ -221,6 +257,8 @@
       !
       ! Return the number of state variables of the different models
       !
+
+      Integer iMod, nVar
 
       Select Case (iMod)
       Case (1)
@@ -233,22 +271,41 @@
       End
 
 
-      Subroutine GetStateVarNameAndUnit( iMod , iVar, Name, Unit )
+      Subroutine GetStateVarName( iMod , iVar, Name)
       !
       ! Return the name and unit of the different state variables of the different models
       !
+      Integer iMod, iVar
       Character (Len=255) Name, Unit
 
       Select Case (iMod)
       Case (1)
         Select Case (iVar)
-          Case (1)
-            Name = 'var_1#'         ; Unit = '-'
           Case Default
-            Name='N/A'              ; Unit = '?'
+            Name='N/A'
         End Select
       Case Default
-        Name='N/A'                  ; Unit = '?'
+        Name='N/A'
+      End Select
+
+      Return
+      End
+
+      Subroutine GetStateVarUnit( iMod , iVar, Unit )
+      !
+      ! Return the name and unit of the different state variables of the different models
+      !
+      Integer iMod, iVar
+      Character (Len=255) Unit
+
+      Select Case (iMod)
+      Case (1)
+        Select Case (iVar)
+          Case Default
+            Unit = '?'
+        End Select
+      Case Default
+      Unit = '?'
       End Select
 
       Return
