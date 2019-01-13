@@ -172,14 +172,10 @@
       !
       ! Return the number of parameters of the different models
       !
-      Integer iModel, C
+      Integer iModel, noParams
 
-      Select Case (iModel)
-        Case (1)
           noParams= 5
-        Case Default
-          noParams= 0
-      End Select
+
       Return
       End ! GetParamCount
 
