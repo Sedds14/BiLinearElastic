@@ -221,23 +221,23 @@
       !
 
       Integer iModel, iParam
-      Character (Len=255) Units
+      Character (Len=20) Units
       Select Case (iModel)
         Case (1)
           ! ModName = 'DP'
           Select Case (iParam)
             Case (1)
-              Units     = 'kPa'      ! SigmaB
+              Units     = ' kPa '      ! SigmaB
             Case (2)
-              Units   = 'kPa'      ! E1
+              Units   = ' kPa '      ! E1
             Case (3)
-              Units   = '-'        ! v1
+              Units   = ' - '        ! v1
             Case (4)
-              Units    = 'kPa'      ! E2
+              Units    = ' kPa '      ! E2
             Case (5)
-              Units    = '-'        ! v2
+              Units    = ' - '        ! v2
             Case Default
-              Units    = '???'
+              Units    = ' ??? '
           End Select
  
         Case Default
