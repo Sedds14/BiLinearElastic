@@ -175,7 +175,7 @@
       Integer iModel, C
 
       Select Case (iModel)
-        Case ( 1 )
+        Case (1)
           noParams= 5
         Case Default
           noParams= 0
