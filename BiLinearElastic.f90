@@ -1,4 +1,4 @@
-      Subroutine User_Mod ( IDTask, iMod, IsUndr, iStep, iTer, &
+      Subroutine User_Mod ( IDTask, iModelel, IsUndr, iStep, iTer, &
                               iEl, Int, X, Y, Z, Time0, dTime, &
                               Props, Sig0, Swp0, StVar0, dEps, &
                               D, BulkW, Sig, Swp, StVar, ipl, &
@@ -6,8 +6,8 @@
                               iTang, iPrjDir, iPrjLen, iAbort )
 !
 ! Purpose: User supplied soil model
-!          Example: iMod=1 : Bi-Linear Elastic
-!                   iMod=2 : Mohr-Coulomb
+!          Example: iModel=1 : Bi-Linear Elastic
+!                   iModel=2 : Mohr-Coulomb
 !
 !  Depending on IDTask, 1 : Initialize state variables
 !                       2 : calculate stresses,
@@ -21,7 +21,7 @@
 ! Arguments:
 !          I/O  Type
 !  IDTask   I   I    : see above
-!  iMod     I   I    : model number (1..10)
+!  iModel     I   I    : model number (1..10)
 !  IsUndr   I   I    : =1 for undrained, 0 otherwise
 !  iStep    I   I    : Global step number
 !  iter     I   I    : Global iteration number
@@ -125,56 +125,56 @@
 ! OTHER Subroutines in this file:
 !
 !  Subroutine GetModelCount( nMod )
-!  Subroutine GetModelName ( iMod , ModelName )
-!  Subroutine GetParamCount( iMod , nParam )
-!  Subroutine GetParamName ( iMod , iParam, ParamName )
-!  Subroutine GetParamUnit ( iMod , iParam, Units )
-!  Subroutine GetStateVarCount( iMod , nVar )
-!  Subroutine GetStateVarName ( iMod , iVar, Name )
-!  Subroutine GetStateVarUnit ( iMod , iVar, Unit )
+!  Subroutine GetModelName ( iModel , ModelName )
+!  Subroutine GetParamCount( iModel , nParam )
+!  Subroutine GetParamName ( iModel , iParam, ParamName )
+!  Subroutine GetParamUnit ( iModel , iParam, Units )
+!  Subroutine GetStateVarCount( iModel , nVar )
+!  Subroutine GetStateVarName ( iModel , iVar, Name )
+!  Subroutine GetStateVarUnit ( iModel , iVar, Unit )
 !
 ! Local:
-!  Subroutine GetParamAndUnit( iMod , iParam, ParamName, Units )
-!  Subroutine GetStateVarNameAndUnit( iMod , iVar, Name, Unit )
+!  Subroutine GetParamAndUnit( iModel , iParam, ParamName, Units )
+!  Subroutine GetStateVarNameAndUnit( iModel , iVar, Name, Unit )
 
 
 
       Subroutine GetModelCount(nMod)
       !
-      ! Return the maximum model number (iMod) in this DLL
+      ! Return the maximum model number (iModel) in this DLL
       !
       Integer (Kind=4) nMod
 
-      nMod = 1 ! Maximum model number (iMod) in current DLL
+      nMod = 1 ! Maximum model number (iModel) in current DLL
 
       Return
       End ! GetModelCount
 
-      Subroutine GetModelName( iMod , ModelName )
+      Subroutine GetModelName( iModel , ModelName )
       !
       ! Return the name of the different models
       !
-      Integer  iMod
+      Integer  iModel
       Character (Len= 50 ) ModelName
 
 
-      Select Case (iMod)
+      Select Case (iModel)
         Case (1)
           ModelName = ' Bi-linear elastic'
         Case Default
-          ModelName = 'not in DLL'
+          ModelName = ' not in DLL'
       End Select
 
       Return
       End ! GetModelName
 
-      Subroutine GetParamCount( iMod , C )
+      Subroutine GetParamCount( iModel , C )
       !
       ! Return the number of parameters of the different models
       !
-      Integer iMod, C
+      Integer iModel, C
 
-      Select Case (iMod)
+      Select Case (iModel)
         Case ( 1 )
           C = 5
         Case Default
@@ -183,27 +183,27 @@
       Return
       End ! GetParamCount
 
-      Subroutine GetParamName (iMod, iParam, ParamName)
+      Subroutine GetParamName (iModel, iParam, ParamName)
 
-      Integer iMod, iParam
-      Character (Len=255) ParamName
+      Integer iModel, iParam
+      Character (Len=20) ParamName
 
-      Select Case (iMod)
+      Select Case (iModel)
         Case (1)
           ! ModName = 'DP'
           Select Case (iParam)
             Case (1)
-              ParamName = '@s#_B#' ! SigmaB
+              ParamName = ' @s#_B# ' ! SigmaB
             Case (2)
-              ParamName = 'E_1#'   ! E1
+              ParamName = ' E_1# '   ! E1
             Case (3)
-              ParamName = '@n#_1#' ! v1
+              ParamName = ' @n#_1# ' ! v1
             Case (4)
-              ParamName = 'E_2#'   ! E2
+              ParamName = ' E_2# '   ! E2
             Case (5)
-              ParamName = '@n#_2#' ! v2
+              ParamName = ' @n#_2# ' ! v2
             Case Default
-              ParamName = '???'   
+              ParamName = ' ??? '   
           End Select
  
         Case Default
@@ -215,7 +215,7 @@
       End ! GetParamAndUnit
 
 
-      Subroutine GetParamUnit( iMod , iParam, Units )
+      Subroutine GetParamUnit( iModel , iParam, Units )
       !
       ! Return the parameters name and units of the different models
       !
@@ -224,9 +224,9 @@
       !            T for time unit
       !
 
-      Integer iMod, iParam
+      Integer iModel, iParam
       Character (Len=255) Units
-      Select Case (iMod)
+      Select Case (iModel)
         Case (1)
           ! ModName = 'DP'
           Select Case (iParam)
@@ -253,14 +253,14 @@
       End ! GetParamAndUnit
 
 
-      Subroutine GetStateVarCount( iMod , nVar )
+      Subroutine GetStateVarCount( iModel , nVar )
       !
       ! Return the number of state variables of the different models
       !
 
-      Integer iMod, nVar
+      Integer iModel, nVar
 
-      Select Case (iMod)
+      Select Case (iModel)
       Case (1)
         nVar = 0
       Case Default
@@ -271,14 +271,14 @@
       End
 
 
-      Subroutine GetStateVarName( iMod , iVar, Name)
+      Subroutine GetStateVarName( iModel , iVar, Name)
       !
       ! Return the name and unit of the different state variables of the different models
       !
-      Integer iMod, iVar
+      Integer iModel, iVar
       Character (Len=255) Name
 
-      Select Case (iMod)
+      Select Case (iModel)
       Case (1)
         Select Case (iVar)
           Case Default
@@ -291,14 +291,14 @@
       Return
       End
 
-      Subroutine GetStateVarUnit( iMod , iVar, Unit )
+      Subroutine GetStateVarUnit( iModel , iVar, Unit )
       !
       ! Return the name and unit of the different state variables of the different models
       !
-      Integer iMod, iVar
+      Integer iModel, iVar
       Character (Len=255) Unit
 
-      Select Case (iMod)
+      Select Case (iModel)
       Case (1)
         Select Case (iVar)
           Case Default
