@@ -276,7 +276,7 @@
       ! Return the name and unit of the different state variables of the different models
       !
       Integer iMod, iVar
-      Character (Len=255) Name, Unit
+      Character (Len=255) Name
 
       Select Case (iMod)
       Case (1)
