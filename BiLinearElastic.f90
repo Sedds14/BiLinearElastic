@@ -1,7 +1,7 @@
-      Subroutine User_Mod ( IDTask, iModelel, IsUndr, iStep, iTer, &
+      Subroutine User_Mod ( IDTask, iMod, IsUndr, iStep, iTer, &
                               iEl, Int, X, Y, Z, Time0, dTime, &
                               Props, Sig0, Swp0, StVar0, dEps, &
-                              D, BulkW, Sig, Swp, StVar, ipl, &
+                              D, Bulk_W, Sig, Swp, StVar, ipl, &
                               nStat, NonSym, iStrsDep, iTimeDep, &
                               iTang, iPrjDir, iPrjLen, iAbort )
 !
