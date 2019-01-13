@@ -139,7 +139,7 @@
 
 
 
-      Subroutine Get_Model_Count(nMod)
+      Subroutine GetModelCount(nMod)
       !
       ! Return the maximum model number (iMod) in this DLL
       !
@@ -150,7 +150,7 @@
       Return
       End ! GetModelCount
 
-      Subroutine Get_Model_Name( iMod , ModelName )
+      Subroutine GetModelName( iMod , ModelName )
       !
       ! Return the name of the different models
       !
@@ -166,9 +166,9 @@
       End Select
 
       Return
-      End ! Get_Model_Name
+      End ! GetModelName
 
-      Subroutine Get_Param_Count( iMod , nParam )
+      Subroutine GetParamCount( iMod , nParam )
       !
       ! Return the number of parameters of the different models
       !
@@ -179,7 +179,7 @@
           nParam = 0
       End Select
       Return
-      End ! Get_Param_Count
+      End ! GetParamCount
 
       Subroutine GetParamAndUnit( iMod , iParam, ParamName, Units )
       !
@@ -217,7 +217,7 @@
       End ! GetParamAndUnit
 
 
-      Subroutine Get_StateVar_Count( iMod , nVar )
+      Subroutine GetStateVarCount( iMod , nVar )
       !
       ! Return the number of state variables of the different models
       !
