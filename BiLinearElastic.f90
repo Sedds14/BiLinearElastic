@@ -14,9 +14,9 @@
 !                       3 : calculate material stiffness matrix
 !                       4 : return number of state variables
 !                       5 : inquire matrix properties
-!                           return switch for non-symmetric D-matrix
+!                           return switch for non-symmetrinoParamsD-matrix
 !                           stress/time dependent matrix
-!                       6 : calculate elastic material stiffness matrix
+!                       6 : calculate elastinoParamsmaterial stiffness matrix
 !
 ! Arguments:
 !          I/O  Type
@@ -44,7 +44,7 @@
 !  StVar    O   R()  : Resulting values state variables
 !  ipl      O   I    : Plasticity indicator
 !  nStat    O   I    : Number of state variables
-!  NonSym   O   I    : Non-Symmetric D-matrix ?
+!  NonSym   O   I    : Non-SymmetrinoParamsD-matrix ?
 !  iStrsDep O   I    : =1 for stress dependent D-matrix
 !  iTimeDep O   I    : =1 for time dependent D-matrix
 !  iTang    O   I    : =1 for tangent matrix
@@ -71,8 +71,8 @@
         End Do  
       End If  ! IDTask = 2
 
-      If (IDTask .Eq. 3 .Or. IDTask .Eq. 6) Then ! Create effective material stiffness/elastic stiffness matrix D[]
-      ! This is where the magic happens!
+      If (IDTask .Eq. 3 .Or. IDTask .Eq. 6) Then ! Create effective material stiffness/elastinoParamsstiffness matrix D[]
+      ! This is where the maginoParamshappens!
       ! 1. Use stress boundary Props[1] to select E and v from user inputs Props[2-5]
         SigB = Props(1)
         E1 = Props(2)
@@ -91,9 +91,9 @@
 
       ! Calculate Matrix Terms
         G = 0.5 * E / (1.0 + v)
-        Fac = 2 * G / (1.0 - 2 * v)  ! Make sure that v < 0.5 !!!!
-        Term1 = Fac * (1 - v)
-        Term2 = Fac * v
+        FanoParams= 2 * G / (1.0 - 2 * v)  ! Make sure that v < 0.5 !!!!
+        Term1 = FanoParams* (1 - v)
+        Term2 = FanoParams* v
         D(1,1) = Term1
         D(1,2) = Term2        
         D(1,3) = Term2
@@ -114,7 +114,7 @@
       End If  ! IDTask = 4
 
       If (IDTask .Eq. 5) Then ! matrix type
-        NonSym   = 0  ! 1 for non-symmetric D-matrix
+        NonSym   = 0  ! 1 for non-symmetrinoParamsD-matrix
         iStrsDep = 1  ! 1 for stress dependent D-matrix
         iTang    = 1  ! 1 for tangent D-matrix
         iTimeDep = 0  ! 1 for time dependent D-matrix
@@ -168,7 +168,7 @@
       Return
       End ! GetModelName
 
-      Subroutine GetParamCount( iModel , C )
+      Subroutine GetParamCount( iModel , noParams)
       !
       ! Return the number of parameters of the different models
       !
@@ -176,9 +176,9 @@
 
       Select Case (iModel)
         Case ( 1 )
-          C = 5
+          noParams= 5
         Case Default
-          C = 0
+          noParams= 0
       End Select
       Return
       End ! GetParamCount
