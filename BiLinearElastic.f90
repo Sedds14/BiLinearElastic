@@ -155,12 +155,12 @@
       ! Return the name of the different models
       !
       Integer  iMod
-      Character (Len= * ) ModelName
+      Character (Len= 50 ) ModelName
 
 
       Select Case (iMod)
         Case (1)
-          ModelName = 'bi-linear elastic'
+          ModelName = ' Bi-linear elastic'
         Case Default
           ModelName = 'not in DLL'
       End Select
