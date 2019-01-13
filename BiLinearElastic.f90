@@ -160,7 +160,7 @@
 
       Select Case (iModel)
         Case (1)
-          ModelName = ' Bi-linear elastic'
+          ModelName = ' Bi-linear elastic '
         Case Default
           ModelName = ' not in DLL'
       End Select
@@ -172,7 +172,7 @@
       !
       ! Return the number of parameters of the different models
       !
-      Integer iModel, noParams
+      Integer (Kind = 4) iModel, noParams
 
           noParams= 5
 
