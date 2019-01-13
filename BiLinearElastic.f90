@@ -160,7 +160,7 @@
 
       Select Case (iMod)
         Case (1)
-          ModelName = 'Bi-linear elastic'
+          ModelName = 'bi-linear elastic'
         Case Default
           ModelName = 'not in DLL'
       End Select
