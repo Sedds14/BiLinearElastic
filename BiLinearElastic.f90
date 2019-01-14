@@ -161,9 +161,9 @@
 
       Select Case (iModel)
         Case (1)
-          ModelName = ' Bi-linear elastic '
+          ModelName = "Bi-linear elastic"
         Case Default
-          ModelName = ' not in DLL'
+          ModelName = "not in DLL"
       End Select
 
       Return
@@ -188,25 +188,24 @@
 
       Select Case (iModel)
         Case (1)
-          ! ModName = 'DP'
           Select Case (iParam)
             Case (1)
-              ParamName = ' @s#_B# ' ! SigmaB
+              ParamName = "@s#_B#" ! SigmaB
             Case (2)
-              ParamName = ' E_1# '   ! E1
+              ParamName = "E_1#"   ! E1
             Case (3)
-              ParamName = ' @n#_1# ' ! v1
+              ParamName = "@n#_1#" ! v1
             Case (4)
-              ParamName = ' E_2# '   ! E2
+              ParamName = "E_2#"   ! E2
             Case (5)
-              ParamName = ' @n#_2# ' ! v2
+              ParamName = "@n#_2#" ! v2
             Case Default
-              ParamName = ' ??? '   
+              ParamName = "???"   
           End Select
  
         Case Default
           ! model not in DLL
-          ParamName = ' N/A '     
+          ParamName = "N/A"     
       End Select
 
       Return
@@ -228,25 +227,24 @@
 
       Select Case (iModel)
         Case (1)
-          ! ModName = 'DP'
           Select Case (iParam)
             Case (1)
-              Units     = ' kPa '      ! SigmaB
+              Units     = "kPa"      ! SigmaB
             Case (2)
-              Units   = ' kPa '      ! E1
+              Units   = "kPa"      ! E1
             Case (3)
-              Units   = ' - '        ! v1
+              Units   = "-"        ! v1
             Case (4)
-              Units    = ' kPa '      ! E2
+              Units    = "kPa"      ! E2
             Case (5)
-              Units    = ' - '        ! v2
+              Units    = "-"        ! v2
             Case Default
-              Units    = ' ??? '
+              Units    = "???"
           End Select
  
         Case Default
           ! model not in DLL
-          Units     = ' N/A '
+          Units     = "N/A"
       End Select
 
       Return
@@ -282,10 +280,10 @@
       Case (1)
         Select Case (iVar)
           Case Default
-            Name='N/A'
+            Name="N/A"
         End Select
       Case Default
-        Name='N/A'
+        Name="N/A"
       End Select
 
       Return
@@ -302,10 +300,10 @@
       Case (1)
         Select Case (iVar)
           Case Default
-            Unit = '?'
+            Unit = "?"
         End Select
       Case Default
-      Unit = '?'
+      Unit = "?"
       End Select
 
       Return
