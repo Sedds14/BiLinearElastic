@@ -156,9 +156,8 @@
       ! Return the name of the different models
       !
       Integer  iModel
+      Character (Len= 30 ) ModelName
       !DEC$ ATTRIBUTES DLLExport :: GetModelName
-      Character (Len= 50 ) ModelName
-
 
       Select Case (iModel)
         Case (1)
@@ -277,7 +276,7 @@
       ! Return the name and unit of the different state variables of the different models
       !
       Integer iModel, iVar
-      Character (Len=255) Name
+      Character (Len=20) Name
       !DEC$ ATTRIBUTES DLLExport :: GetStateVarName
       Select Case (iModel)
       Case (1)
@@ -297,7 +296,7 @@
       ! Return the name and unit of the different state variables of the different models
       !
       Integer iModel, iVar
-      Character (Len=255) Unit
+      Character (Len=20) Unit
       !DEC$ ATTRIBUTES DLLExport :: GetStateVarUnit
       Select Case (iModel)
       Case (1)
