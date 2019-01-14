@@ -144,6 +144,7 @@
       ! Return the maximum model number (iModel) in this DLL
       !
       Integer (Kind=4) nMod
+      !DEC$ ATTRIBUTES DLLExport :: GetModelCount
 
       nMod = 1 ! Maximum model number (iModel) in current DLL
 
@@ -155,6 +156,7 @@
       ! Return the name of the different models
       !
       Integer  iModel
+      !DEC$ ATTRIBUTES DLLExport :: GetModelName
       Character (Len= 50 ) ModelName
 
 
@@ -173,7 +175,7 @@
       ! Return the number of parameters of the different models
       !
       Integer (Kind = 4) iModel, noParams
-
+      !DEC$ ATTRIBUTES DLLExport :: GetParamCount
           noParams= 5
 
       Return
@@ -183,6 +185,7 @@
 
       Integer iModel, iParam
       Character (Len=20) ParamName
+      !DEC$ ATTRIBUTES DLLExport :: GetParamName
 
       Select Case (iModel)
         Case (1)
@@ -222,6 +225,8 @@
 
       Integer iModel, iParam
       Character (Len=20) Units
+      !DEC$ ATTRIBUTES DLLExport :: GetParamUnit
+
       Select Case (iModel)
         Case (1)
           ! ModName = 'DP'
@@ -255,7 +260,7 @@
       !
 
       Integer iModel, nVar
-
+      !DEC$ ATTRIBUTES DLLExport :: GetStateVarCount
       Select Case (iModel)
       Case (1)
         nVar = 0
@@ -273,7 +278,7 @@
       !
       Integer iModel, iVar
       Character (Len=255) Name
-
+      !DEC$ ATTRIBUTES DLLExport :: GetStateVarName
       Select Case (iModel)
       Case (1)
         Select Case (iVar)
@@ -293,7 +298,7 @@
       !
       Integer iModel, iVar
       Character (Len=255) Unit
-
+      !DEC$ ATTRIBUTES DLLExport :: GetStateVarUnit
       Select Case (iModel)
       Case (1)
         Select Case (iVar)
