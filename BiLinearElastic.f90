@@ -53,7 +53,7 @@
       Implicit Double Precision (A-H, O-Z)
 
       Dimension Props(*), Sig0(*), StVar0(*), dEps(*), D(6,6), Sig(*), StVar(*), iPrjDir(*)
-      !DEC$ ATTRIBUTES DLLExport :: User_Mod
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference  :: User_Mod
 
       If (IDTask .Eq. 1) Then ! Initialize state variables StVar0
         ! Initialise state variables based on K0 conditions
@@ -144,7 +144,7 @@
       ! Return the maximum model number (iModel) in this DLL
       !
       Integer (Kind=4) nMod
-      !DEC$ ATTRIBUTES DLLExport :: GetModelCount
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetModelCount
 
       nMod = 1 ! Maximum model number (iModel) in current DLL
 
@@ -156,8 +156,8 @@
       ! Return the name of the different models
       !
       Integer  iModel
-      Character (Len= 30 ) ModelName
-      !DEC$ ATTRIBUTES DLLExport :: GetModelName
+      Character (Len= 250 ) ModelName
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetModelName
 
       Select Case (iModel)
         Case (1)
@@ -174,7 +174,7 @@
       ! Return the number of parameters of the different models
       !
       Integer (Kind = 4) iModel, noParams
-      !DEC$ ATTRIBUTES DLLExport :: GetParamCount
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetParamCount
           noParams= 5
 
       Return
@@ -183,8 +183,8 @@
       Subroutine GetParamName (iModel, iParam, ParamName)
 
       Integer iModel, iParam
-      Character (Len=20) ParamName
-      !DEC$ ATTRIBUTES DLLExport :: GetParamName
+      Character (Len=250) ParamName
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetParamName
 
       Select Case (iModel)
         Case (1)
@@ -222,8 +222,8 @@
       !
 
       Integer iModel, iParam
-      Character (Len=20) Units
-      !DEC$ ATTRIBUTES DLLExport :: GetParamUnit
+      Character (Len=250) Units
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetParamUnit
 
       Select Case (iModel)
         Case (1)
@@ -257,7 +257,7 @@
       !
 
       Integer iModel, nVar
-      !DEC$ ATTRIBUTES DLLExport :: GetStateVarCount
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetStateVarCount
       Select Case (iModel)
       Case (1)
         nVar = 0
@@ -274,8 +274,8 @@
       ! Return the name and unit of the different state variables of the different models
       !
       Integer iModel, iVar
-      Character (Len=20) Name
-      !DEC$ ATTRIBUTES DLLExport :: GetStateVarName
+      Character (Len=250) Name
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetStateVarName
       Select Case (iModel)
       Case (1)
         Select Case (iVar)
@@ -294,8 +294,8 @@
       ! Return the name and unit of the different state variables of the different models
       !
       Integer iModel, iVar
-      Character (Len=20) Unit
-      !DEC$ ATTRIBUTES DLLExport :: GetStateVarUnit
+      Character (Len=250) Unit
+      !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: GetStateVarUnit
       Select Case (iModel)
       Case (1)
         Select Case (iVar)
