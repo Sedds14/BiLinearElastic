@@ -54,47 +54,51 @@
 
       Dimension Props(*), Sig0(*), StVar0(*), dEps(*), D(6,6), Sig(*), StVar(*), iPrjDir(*)
  
-      Data iounit / 0 /
-      Save iounit
-      integer i, j
-      Character*100 BaseName
-      Character(8)  :: date
-      Character(10) :: time
+!      Data iounit / 0 /
+!      Save iounit
+!      integer i, j
+!      Character*100 BaseName
+!      Character(8)  :: date
+!      Character(10) :: time
       !DEC$ ATTRIBUTES DLLExport, StdCall, reference :: User_Mod
       
-      BaseName = 'example'
-      ! Possibly open a file for debugging purposes
-      If (iounit.Eq.0) Then
+!      BaseName = 'example'
+!      ! Possibly open a file for debugging purposes
+!      If (iounit.Eq.0) Then
 
-        Call Open_Dbg_File( iPrjDir, iPrjLen, BaseName )
+        !Call Open_Dbg_File( iPrjDir, iPrjLen, BaseName )
 
-        Write(1,*)'File 1 opened: ', Trim(baseName)
+        !Write(1,*)'File 1 opened: ', Trim(baseName)
         ! maybe write some more info on version to debug file ?
         !Write(1,*)'Compiled : ',__DATE__,' ', __TIME__  - Probabaly wrong for compiler
 
         ! using keyword arguments
-        call date_and_time(date,time)
-        call date_and_time(DATE=date)
-        call date_and_time(TIME=time)
-
-        Write(1,*)'Compiled : ', DATE, TIME
-
-        1050   format ( 1X,A,1x,I0 )
-        iounit = 1
-        Call WriVec(1,'Props',Props,50)
-        Call Flush(1)
-      End If
-
-      Call WriIvl( -1, 'iounit',iounit )
-      Call WriIvl( -1, 'IDTask',IDTask )
-
-      nStat = 0
+!        call date_and_time(date,time)
+!        call date_and_time(DATE=date)
+!        call date_and_time(TIME=time)
+!
+!        Write(1,*)'Compiled : ', DATE, TIME
+!
+!        1050   format ( 1X,A,1x,I0 )
+!        iounit = 1
+!        Call WriVec(1,'Props',Props,50)
+!        Call Flush(1)
+!      End If
+!
+!      Call WriIvl( -1, 'iounit',iounit )
+!      Call WriIvl( -1, 'IDTask',IDTask )
+!
+!      nStat = 0
 
       If (IDTask .Eq. 1) Then ! Initialize state variables StVar0
         ! Initialise state variables based on K0 conditions
         ! We could set p = grout pressure if suitable?
-        p = (Sig0(1) + Sig0(2) + Sig0(3)) / 3
-        StVar0(1) = Min(StVar0(1), p)
+        !p = (Sig0(1) + Sig0(2) + Sig0(3)) / 3
+        !StVar(1) = Min(StVar0(1), p)
+        Call MZeroR( StVar0, nStatV )
+        Call MZeroR( StVar , nStatV )
+        print *, "Task 1"
+
       End If  ! IDTask = 1
 
       If (IDTask .Eq. 2) Then ! Calculate the constitutive stresses Sig (and Swp)
@@ -105,6 +109,7 @@
             Sig(i) = Sig(i) + D(i,j) * dEps(j)
           End Do
         End Do  
+        Print *, "Task 2"
 
       End If  ! IDTask = 2
 
@@ -144,10 +149,13 @@
         D(5,5) = G
         D(6,6) = G
 
+        print *, "Task 3"
+
       End If  ! IDTask = 3 & 6
 
       If (IDTask .Eq. 4) Then ! Number of state parameters
         nStat    = 1
+        print *, "Task 4"
       End If  ! IDTask = 4
 
       If (IDTask .Eq. 5) Then ! matrix type
@@ -155,9 +163,10 @@
         iStrsDep = 1  ! 1 for stress dependent D-matrix
         iTang    = 1  ! 1 for tangent D-matrix
         iTimeDep = 0  ! 1 for time dependent D-matrix
+        print *, "Task 5"
       End If  ! IDTask = 5
 
-      Return
+!      Return
 
 !      Case Default
 !          Write(1,*) 'invalid model number in UsrMod', iMod
@@ -174,12 +183,12 @@
         Write(1,*)'TimeDep : ',iTimeDep
         Write(1,*)'Tangent : ',iTang
       End If
-      If (IDTask == -333 .And. iel+int == -1234) Then
+!      If (IDTask == -333 .And. iel+int == -1234) Then
 !        Write(1,*)'IDTask: ',IDTask,' iStep,iTer',iStep,iTer
 !        Call Flush(1)
-      End If
-      Call WriIvl( -1, 'IDTask end',IDTask )
-      Return
+!      End If
+!      Call WriIvl( -1, 'IDTask end',IDTask )
+     Return
      End ! End of model
 ! OTHER Subroutines in this file:
 
