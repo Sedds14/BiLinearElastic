@@ -97,7 +97,7 @@
         !StVar(1) = Min(StVar0(1), p)
         Call MZeroR( StVar0, nStatV )
         Call MZeroR( StVar , nStatV )
-        print *, "Task 1"
+        ! print *, "Task 1"
 
       End If  ! IDTask = 1
 
@@ -109,7 +109,7 @@
             Sig(i) = Sig(i) + D(i,j) * dEps(j)
           End Do
         End Do  
-        Print *, "Task 2"
+       !Print *, "Task 2"
 
       End If  ! IDTask = 2
 
@@ -122,6 +122,13 @@
         E2 = Props(4)
         v2 = Props(5) 
       ! SigD is the deviator stress
+        Do i=1,6
+          Sig(i) = Sig0(i)
+          Do j=1,6
+            Sig(i) = Sig(i) + D(i,j) * dEps(j)
+          End Do
+        End Do  
+
         SigD = Sig(1) - (Sig(2)+ Sig(3)) / 2
         If (SigD .Gt. SigB) Then ! Material is stiff
           E = E2
